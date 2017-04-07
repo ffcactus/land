@@ -85,14 +85,15 @@ am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
-CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_land_OBJECTS = main.$(OBJEXT)
 land_OBJECTS = $(am_land_OBJECTS)
-land_DEPENDENCIES = ../lib/libutils.a
+am__DEPENDENCIES_1 =
+land_DEPENDENCIES = $(top_builddir)/src/tils/libtils.a \
+	$(am__DEPENDENCIES_1)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -105,7 +106,7 @@ AM_V_at = $(am__v_at_@AM_V@)
 am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
 am__v_at_1 = 
-DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
+DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
@@ -150,7 +151,11 @@ CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
+
+# additional include pathes necessary to compile the C programs
+AM_CXXFLAGS = -I$(top_srcdir)/src @AM_CXXFLAGS@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
+AM_LDFLAGS = @AM_LDFLAGS@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -236,9 +241,12 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+
+# the list of sources for the binary
 land_SOURCES = main.c
-AC_CFLAGS = -I../include
-land_LDADD = ../lib/libutils.a
+
+# the additional libraries needed to link.
+land_LDADD = $(top_builddir)/src/tils/libtils.a $(AM_LDFLAGS)
 all: all-am
 
 .SUFFIXES:
