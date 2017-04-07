@@ -1,2 +1,2 @@
-AUTOMAKE_OPTIONS=foreign
-SUBDIRS=doc man script src
+# the subdirectories of the project to go into
+SUBDIRS = src/mylib src/init
